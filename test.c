@@ -315,7 +315,7 @@ void test_date(){
 
 
 void test_many_files(){
-    int i,ok=0;
+    int i,ok=1;
     remove("grademe.bin");
     initfs("grademe.bin",1000,512);
     indice_fs_t vfs = openfs("grademe.bin");
