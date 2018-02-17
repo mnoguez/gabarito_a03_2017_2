@@ -5,12 +5,12 @@ Alunos que submeterem correções ao gabarito que forem aceitas receberão 0,5 p
 
 Para submeter uma correção:
 
-- Criar uma issue com um nome que deixe claro qual o bug ("o tamanho do bloco deve ser múltiplo de 512")
-- A issue deve ter uma descrição do bug
-- A issue deve ter os passos para repetir o bug (incluindo qual o repositório do trabalho e o commit que apresenta o bug)
-- A issue deve ter um arquivo anexo com o patch que resolve o bug para a última versão disponível do teste.c
-- A issue deve ter o nome do aluno que descobriu o bug
-- A issue deve ter o professor como assignee
+- Criar um pull request com um nome que deixe claro qual o bug ("o tamanho do bloco deve ser múltiplo de 512")
+- Deve ter uma descrição do bug
+- Deve ter os passos para repetir o bug (incluindo qual o repositório do trabalho e o commit que apresenta o bug)
+- Deve ter um arquivo anexo com o patch que resolve o bug para a última versão disponível do teste.c
+- Deve ter o nome do aluno que descobriu o bug
+- Deve ter o professor como assignee
 
 Por exemplo,
 
@@ -27,3 +27,6 @@ Passos para repetir:
 Patch em anexo.
 
 Aluno: Maurício Lima Pilla <pilla@inf.ufpel.edu.br>  
+
+
+[Pull requests no github](https://help.github.com/articles/about-pull-requests/)
