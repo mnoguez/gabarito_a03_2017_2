@@ -208,6 +208,10 @@ void test_stress_bitmap(){
     closefs(vfs);
 }
 
+int get_min_data_blocks_index(int data_blocks, int block_size){
+    int index_per_block = block_size / 4 ;
+    return 1 +  data_blocks/ index_per_block;
+}
 
 void test_multiple_blocks(){
     int ok=0;
@@ -217,12 +221,24 @@ void test_multiple_blocks(){
 
     WHEN("Crio um arquivo com vários blocos");
     THEN("Conteúdo lido deve ser igual ao escrito");
-    
-    if (write_chars(vfs, "a.txt", 'a', 512000)){
-        if (read_chars(vfs, "a.txt", 'a', 512000))
+    int real_data_blocks = 357 - get_min_data_blocks_index(357, 512); // 354
+    int real_data_blocks_bytes = real_data_blocks * 512;
+    if (write_chars(vfs, "a.txt", 'a', real_data_blocks_bytes)){
+        if (read_chars(vfs, "a.txt", 'a', real_data_blocks_bytes))
             ok = 1;
     }
     isEqual(ok, 1, 5);
+
+    f_seek(vfs, 0);
+    ok = 0;
+
+    WHEN("Crio um arquivo com vários blocos, que exeda o limite do FS");
+    THEN("Conteúdo lido não deve ser igual ao escrito");
+    if (write_chars(vfs, "a.txt", 'a', real_data_blocks_bytes + 1)){
+        if (read_chars(vfs, "a.txt", 'a', real_data_blocks_bytes + 1))
+            ok = 1;
+    }
+    isEqual(ok, 0, 5);
     closefs(vfs);    
 }
 
@@ -315,7 +331,7 @@ void test_date(){
 
 
 void test_many_files(){
-    int i,ok=0;
+    int i,ok=1;
     remove("grademe.bin");
     initfs("grademe.bin",1000,512);
     indice_fs_t vfs = openfs("grademe.bin");
